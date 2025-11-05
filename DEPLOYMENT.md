@@ -1,49 +1,12 @@
 # Deployment Guide
 
-This guide covers deploying the OLTP simulator in production environments.
+This guide covers deploying the OLTP simulator in **production environments**.
 
-## Quick Start - Docker Compose
+> **For local development and testing**, see [README.md](README.md) or [GUIDE.md](GUIDE.md).
 
-### Local Development
+## Docker Deployment
 
-```bash
-# Start PostgreSQL and PgAdmin
-docker-compose up -d postgres
-
-# Wait for database to be ready
-docker-compose exec postgres pg_isready -U app
-
-# Initialize and seed (from host)
-make init
-make seed
-
-# Start streaming
-make stream
-```
-
-### With PgAdmin GUI
-
-```bash
-# Start all services including PgAdmin
-docker-compose up -d
-
-# Access PgAdmin
-# URL: http://localhost:5050
-# Email: admin@example.com
-# Password: admin
-```
-
-### Cleanup
-
-```bash
-# Stop containers
-docker-compose down
-
-# Remove volumes (clean database)
-docker-compose down -v
-```
-
-## Docker - Single Container
+### Single Container
 
 ### Build Image
 
