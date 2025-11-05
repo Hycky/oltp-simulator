@@ -1,6 +1,6 @@
 # 🏥 Alimentador-BD
 
-**OLTP Hospital Simulator** — Continuous data streaming for CDC testing with Debezium
+**OLTP Hospital Simulator** — Continuous data streaming for CDC testing with Debezium or another CDC ingestion engine.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
