@@ -68,11 +68,13 @@ def insert_paciente(conn: psycopg2.extensions.connection, validators) -> bool:
         conn.commit()
         validators.clear_cache()
         return True
-    except psycopg2.IntegrityError:
+    except psycopg2.IntegrityError as e:
         conn.rollback()
+        logger.debug(f"IntegrityError ao inserir paciente: {e}")
         return False
-    except Exception:
+    except Exception as e:
         conn.rollback()
+        logger.error(f"Erro ao inserir paciente: {e}")
         return False
 
 
@@ -109,13 +111,15 @@ def insert_consulta(conn: psycopg2.extensions.connection, validators) -> bool:
     try:
         paciente_id = validators.get_random_paciente_id()
         if not paciente_id:
+            logger.debug("Nenhum paciente disponível para consulta")
             return False
         
         medico_id = validators.get_random_medico_id()
         if not medico_id:
+            logger.debug("Nenhum médico disponível para consulta")
             return False
         
-        consulta = generate_consulta()
+        consulta = generate_consulta(paciente_id, medico_id)
         
         cur = conn.cursor()
         cur.execute(
@@ -128,8 +132,13 @@ def insert_consulta(conn: psycopg2.extensions.connection, validators) -> bool:
         cur.close()
         conn.commit()
         return True
-    except Exception:
+    except psycopg2.IntegrityError as e:
         conn.rollback()
+        logger.debug(f"IntegrityError ao inserir consulta: {e}")
+        return False
+    except Exception as e:
+        conn.rollback()
+        logger.error(f"Erro ao inserir consulta: {e}")
         return False
 
 
@@ -161,9 +170,10 @@ def insert_exame(conn: psycopg2.extensions.connection, validators) -> bool:
     try:
         paciente_id = validators.get_random_paciente_id()
         if not paciente_id:
+            logger.debug("Nenhum paciente disponível para exame")
             return False
         
-        exame = generate_exame()
+        exame = generate_exame(paciente_id)
         
         cur = conn.cursor()
         cur.execute(
@@ -176,8 +186,13 @@ def insert_exame(conn: psycopg2.extensions.connection, validators) -> bool:
         cur.close()
         conn.commit()
         return True
-    except Exception:
+    except psycopg2.IntegrityError as e:
         conn.rollback()
+        logger.debug(f"IntegrityError ao inserir exame: {e}")
+        return False
+    except Exception as e:
+        conn.rollback()
+        logger.error(f"Erro ao inserir exame: {e}")
         return False
 
 
@@ -209,9 +224,10 @@ def insert_internacao(conn: psycopg2.extensions.connection, validators) -> bool:
     try:
         paciente_id = validators.get_random_paciente_id()
         if not paciente_id:
+            logger.debug("Nenhum paciente disponível para internação")
             return False
         
-        internacao = generate_internacao()
+        internacao = generate_internacao(paciente_id)
         
         cur = conn.cursor()
         cur.execute(
@@ -224,8 +240,13 @@ def insert_internacao(conn: psycopg2.extensions.connection, validators) -> bool:
         cur.close()
         conn.commit()
         return True
-    except Exception:
+    except psycopg2.IntegrityError as e:
         conn.rollback()
+        logger.debug(f"IntegrityError ao inserir internação: {e}")
+        return False
+    except Exception as e:
+        conn.rollback()
+        logger.error(f"Erro ao inserir internação: {e}")
         return False
 
 
