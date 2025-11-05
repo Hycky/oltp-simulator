@@ -186,7 +186,7 @@ PG_HOST=localhost
 PG_PORT=5432
 PG_USER=postgres
 PG_PASSWORD=postgres
-PG_DATABASE=hospital_oltp
+PG_DATABASE=teste_pacientes
 
 # Streaming Configuration
 STREAM_INTERVAL_SECONDS=2      # Delay between operations (seconds)
